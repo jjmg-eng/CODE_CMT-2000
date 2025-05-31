@@ -1,0 +1,52 @@
+############################################
+# Project file for generating modbusdaemon #
+# mkmodbus name.mkmodbus                   #
+############################################
+shared_memory=/srv/automation/shm/modbus.shm
+mailbox=/srv/automation/mbx/modbus.mbx
+#communication=serial
+tty=/dev/ttyS0
+baudrate=9600
+rtscts=1
+parity=0   # 0=NONE 1=ODD 2=EVEN
+protocol=0 # 0=RTU  1=ASCII
+communication=socket
+tcpadr=172.17.21.51
+tcpport=502
+#eventlog host=localhost port=6000
+# function := 1=ReadCoilStatus | 2=ReadInputStatus | 3=ReadHoldingRegisters | 4=ReadInputRegisters
+#             1 coil per bit   | 1 input per bit   | 2 byte per register    | 2byte per register
+cycle1 slave=13 function=3 start_adr=1140 num_register=6  #Tensões e correntes
+cycle2 slave=13 function=3 start_adr=1227 num_register=1  #FaseV1
+cycle3 slave=13 function=3 start_adr=1247 num_register=1  #FaseV2
+cycle4 slave=13 function=3 start_adr=1267 num_register=1  #FaseV3
+cycle5 slave=13 function=3 start_adr=1237 num_register=1  #FaseI1
+cycle6 slave=13 function=3 start_adr=1257 num_register=1  #FaseI2
+cycle7 slave=13 function=3 start_adr=1277 num_register=1  #FaseI3
+cycle8 slave=13 function=3 start_adr=3194 num_register=4  #DO0,DO1,DI0,DI1
+cycle9 slave=13 function=3 start_adr=3200 num_register=2  #Timer0, Timer1
+cycle10 slave=13 function=3 start_adr=3222 num_register=2  #Timer status, timer
+
+#1120 - habilita tensões
+#1156 - habilita correntes
+#
+#1152 - referência de tensão : 0 - 45000 : 11500
+#
+#1154 - referência de frequência : 4500 -7000 : 6000
+#
+#1159 - referência de corrente : 0 - 10000 : 0
+#
+#1160 - referência de defasagem : -180 - 180 : 30
+#
+#3190 - DO0 ON
+#3191 - DO0 OFF
+#
+#3192 - DO1 ON
+#3193 - DO1 OFF
+#
+#3220 - start/stop timer
+#3221 - número de ciclos
+#3222 - status
+#3223 - Timer
+#3224 - trigger DI ON = 1
+
